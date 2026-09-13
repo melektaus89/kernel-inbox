@@ -65,7 +65,7 @@ python3 scripts/install-service.py
 systemctl --user status kernel-inbox
 ```
 
-The installer generates a service for this checkout and Python executable. An existing service is backed up as `kernel-inbox.service.bak`; it refuses to overwrite an existing backup. Keep the checkout in place, or reinstall after moving it.
+The installer generates a service for this checkout and Python executable. An existing service is backed up as `kernel-inbox.service.bak`; it refuses to overwrite an existing backup. Existing symlinks are preserved as backup links and replaced with a generated service file, leaving their targets untouched. Install using the script above: the repository's `kernel-inbox.service` is a template and cannot be used directly. The service starts when you log in. Keep the checkout in place, or reinstall after moving it.
 
 To customize runtime settings, run `systemctl --user edit kernel-inbox` and add, for example:
 

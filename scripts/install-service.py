@@ -35,13 +35,16 @@ def main():
         parser.error('run npm ci and npm run build first')
     config = Path(os.environ.get('XDG_CONFIG_HOME', str(Path.home() / '.config')))
     destination = config / 'systemd/user/kernel-inbox.service'
+    rendered = render()
     destination.parent.mkdir(parents=True, exist_ok=True)
-    if destination.exists():
+    if destination.exists() or destination.is_symlink():
         backup = destination.with_suffix('.service.bak')
-        if backup.exists():
+        if backup.exists() or backup.is_symlink():
             parser.error(f'backup already exists: {backup}; move it before reinstalling')
-        shutil.copy2(destination, backup)
-    destination.write_text(render())
+        shutil.copy2(destination, backup, follow_symlinks=False)
+        if destination.is_symlink():
+            destination.unlink()
+    destination.write_text(rendered)
     subprocess.run(['systemctl', '--user', 'daemon-reload'], check=True)
     subprocess.run(['systemctl', '--user', 'enable', '--now', 'kernel-inbox.service'], check=True)
     subprocess.run(['systemctl', '--user', 'restart', 'kernel-inbox.service'], check=True)
