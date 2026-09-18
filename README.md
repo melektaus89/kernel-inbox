@@ -2,6 +2,14 @@
 
 A local, read-only inbox for Linux kernel and security mailing lists. Run it on your own computer and open http://127.0.0.1:8765. No account, API key, or hosted service is required.
 
+![Kernel Inbox showing mailing-list feeds, a message list, and an OSS Security discussion in its three-pane layout](docs/images/inbox-layout.png)
+
+### Adjustable panes
+
+Drag either divider to make room for your feeds, message list, or reading pane. Kernel Inbox remembers your pane widths in this browser. You can also focus a divider with Tab and resize it with the arrow keys.
+
+![Animation showing the sidebar and message-list dividers being dragged to resize the three panes](docs/images/resize-panes.gif)
+
 ## Quick start
 
 Requires **Python 3.11+** and **Node.js 22.13+ with npm**. Linux and macOS can use the commands below; on Windows use `py -3` instead of `python3`. Start-at-login integration is optional and requires Linux with systemd.
