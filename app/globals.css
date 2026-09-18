@@ -23,26 +23,26 @@
 
 /* Match the Omarchy Spotify panel's flat shell controls and surface hierarchy. */
 :root{--shell-fill:color-mix(in srgb,var(--foreground) 4%,var(--background));--shell-hover:color-mix(in srgb,var(--foreground) 8%,var(--background));--shell-selected:color-mix(in srgb,var(--foreground) 18%,var(--background));--shell-outline:color-mix(in srgb,var(--foreground) 40%,transparent)}
-.app{padding:14px;gap:10px;border:1px solid var(--accent);grid-template-columns:215px 370px minmax(0,1fr)}
-.sidebar{padding:12px 8px;background:var(--shell-fill);border:1px solid var(--shell-outline)}
+.app{padding:0;gap:0;border:0;grid-template-columns:215px 370px minmax(0,1fr)}
+.sidebar{padding:26px 8px 12px;background:var(--shell-fill);border:0;border-right:1px solid var(--shell-outline)}
 .brand{padding:4px 6px 18px;font-size:20px;letter-spacing:0;gap:10px}.brand-sub{color:var(--foreground)}
 .account{padding:12px 6px;gap:8px;font-size:13px}.account-icon{background:none;border-radius:0;padding:0}.account small{font-size:11px;letter-spacing:0;line-height:1.5}
 .section-label{font-size:12px;letter-spacing:0;margin-left:6px;margin-bottom:9px}
 .nav-item{border-radius:0;padding:10px 8px;gap:9px;margin-bottom:3px}.nav-item.active{background:var(--shell-selected);box-shadow:none}.nav-item:hover{background:var(--shell-hover)}.nav-item.active:hover{background:var(--shell-selected)}
 .sidebar-note{margin:18px 6px;font-size:12px}
-.mailbox{border:0;min-width:0}.mailbox-header{height:60px;padding:4px 0 14px}.mailbox-header>div{gap:10px}h1{font-size:18px;font-weight:600}
+.mailbox{border:0;min-width:0;padding:14px 10px 0}.mailbox-header{height:60px;padding:4px 0 14px}.mailbox-header>div{gap:10px}h1{font-size:18px;font-weight:600}
 .list-switcher{border-radius:0;color:var(--foreground);border-color:var(--shell-outline);background:var(--shell-fill);max-width:145px}
 .search{margin:0 0 10px;padding:10px;background:var(--shell-fill);border:1px solid var(--shell-outline);border-radius:0;color:var(--foreground)}.search input::placeholder{color:color-mix(in srgb,var(--foreground) 55%,var(--background))}
 .list-toolbar{padding:10px 8px;font-size:12px}.message-list{margin-top:4px}.message-row{border-bottom:0;margin-bottom:2px}.message-row.selected{background:var(--shell-selected);box-shadow:none}.message-row:hover{background:var(--shell-hover)}.message-row.selected:hover{background:var(--shell-selected)}
 .message-row>.row-top{padding:13px 12px 0 16px}.message-select{padding:7px 16px 12px;min-height:86px}.subject{font-size:13px;color:var(--foreground)}.row-top .sender-link{color:var(--muted)}.unread .sender-link{color:var(--foreground)}.message-kind{letter-spacing:0;font-size:11px;margin-top:7px}.unread:before{left:5px;top:19px;width:4px;height:4px}
 footer{padding:11px 4px;font-size:11px;gap:8px;flex-wrap:wrap}
-.reader{border:1px solid var(--shell-outline)}.reader-toolbar{min-height:59px;padding:0 18px;background:var(--shell-fill)}.icon-button{border-radius:0;color:var(--foreground)}button:hover{background:var(--shell-hover)}
+.reader{border:0;border-left:1px solid var(--shell-outline)}.reader-toolbar{min-height:59px;padding:0 18px;background:var(--shell-fill)}.icon-button{border-radius:0;color:var(--foreground)}button:hover{background:var(--shell-hover)}
 .welcome-icon{border:0;border-radius:0;background:none;width:50px;height:50px}.welcome h2{font-size:18px;margin-top:16px}.welcome>span{letter-spacing:0;margin-top:24px;font-size:12px}
 .message-heading{padding:24px}.message-heading h2{font-size:20px;margin:12px 0 22px}.eyebrow{letter-spacing:0;font-size:12px}.avatar{border-radius:0;background:var(--shell-selected);width:36px;height:36px}.body{padding:24px;font-size:14px;line-height:1.8}.thread{margin:12px 24px 28px}.sender-dialog{border-radius:0;box-shadow:0 16px 50px #0007}
 @media(min-width:1550px){.app{grid-template-columns:235px 410px minmax(0,1fr)}.body{font-size:16px}}
-@media(max-width:1100px){.app{grid-template-columns:180px 320px minmax(0,1fr);padding:10px;gap:8px}.brand{font-size:18px}.mailbox-header>div{gap:7px}.list-switcher{max-width:130px}}
-@media(max-width:850px){.app,.app.reading{grid-template-columns:180px minmax(0,1fr)}}
-@media(max-width:520px){.app,.app.reading{grid-template-columns:minmax(0,1fr);padding:8px}.message-heading,.body{padding:18px}}
+@media(max-width:1100px){.app{grid-template-columns:180px 320px minmax(0,1fr)}.mailbox{padding:10px 8px 0}.brand{font-size:18px}.mailbox-header>div{gap:7px}.list-switcher{max-width:130px}}
+@media(max-width:850px){.app,.app.reading{grid-template-columns:180px minmax(0,1fr)}.reader{border:0}}
+@media(max-width:520px){.app,.app.reading{grid-template-columns:minmax(0,1fr)}.mailbox{padding:8px 8px 0}.reader{border:0}.message-heading,.body{padding:18px}}
 
 /* Let the row own its highlight; child controls must not paint over it. */
 .message-row .message-select:hover,.message-row .sender-link:hover{background:transparent}
@@ -57,3 +57,13 @@ footer{padding:11px 4px;font-size:11px;gap:8px;flex-wrap:wrap}
 
 .feed-group+.feed-group{margin-top:16px}
 .feed-group-label{margin:0 8px 6px;font-size:12px;font-weight:500;line-height:1.5;color:var(--muted)}
+
+/* Full-height split panes retain the compact layout below the desktop breakpoint. */
+.app.resizable-app{display:block}
+.inbox-panels{height:100%;width:100%}
+.inbox-pane{height:100%;min-width:0;overflow:hidden}
+.inbox-pane>.sidebar,.inbox-pane>.mailbox,.inbox-pane>.reader{height:100%;border:0}
+.pane-divider{position:relative;width:1px;flex:0 0 1px;background:var(--shell-outline);cursor:col-resize;touch-action:none;outline:none;z-index:2}
+.pane-divider::after{content:'';position:absolute;inset:0 -4px}
+.pane-divider:hover,.pane-divider:focus-visible,.pane-divider[data-separator="active"]{background:var(--accent)}
+.pane-divider:hover::after,.pane-divider:focus-visible::after{background:color-mix(in srgb,var(--accent) 25%,transparent)}

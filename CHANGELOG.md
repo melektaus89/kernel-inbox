@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.2 — 2026-09-17
+
+### Changed
+
+- The sidebar and message reader now reach the edges of the window, with single vertical dividers and retained content padding.
+- Both desktop dividers can be dragged to adjust the sidebar, message list, and reading pane widths. Minimum widths keep each pane usable.
+- Pane widths are remembered in this browser across reloads and feed changes when browser storage is available.
+- Dividers support keyboard resizing: focus a divider with Tab, then use the arrow keys.
+- Narrow windows retain the compact mailbox/reader layout.
+
+### Updating
+
+Stop Kernel Inbox, pull the latest source with `git pull`, run `npm ci` and `npm run build`, then start it again and refresh your browser. For the login service, use `systemctl --user stop kernel-inbox` before updating and `systemctl --user start kernel-inbox` afterward.
+
 ## 0.1.1 — 2026-09-13
 
 ### Fixed

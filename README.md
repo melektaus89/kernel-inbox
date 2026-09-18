@@ -21,6 +21,7 @@ Open http://127.0.0.1:8765. Stop the server with Ctrl+C. Python uses only its st
 Kernel Inbox brings recent kernel development and security discussions into an email-style interface. Browse a feed, open a message, follow its conversation, and keep track of what you have read.
 
 - **Nine focused feeds:** LKML, Linus threads, kernel CVEs, OSS Security, regressions, stable, linux-next, networking, and releases & pull requests.
+- **Adjustable layout:** edge-to-edge panes with draggable desktop dividers and remembered widths. Use Tab and arrow keys to resize with the keyboard; narrow windows keep a compact layout.
 - **Readable discussions:** full messages, archive-provided conversation links, and colored quotes and patch lines.
 - **A personal reading queue:** unread counts, starred messages, header search, and a remembered feed selection.
 - **Local state:** read/starred preferences stay in your browser; archive responses are cached on your computer and remain available when an upstream archive is unreachable.
