@@ -38,7 +38,7 @@ export const defaultFeeds: Feed[] = [
     name: 'Regressions',
     short: 'Regressions',
     address: 'regressions@lists.linux.dev',
-    base: 'https://lore.kernel.ime.usp.br',
+    base: 'https://lore.kernel.org',
     index: '/regressions/',
   },
   {
@@ -46,7 +46,7 @@ export const defaultFeeds: Feed[] = [
     name: 'Stable kernel',
     short: 'Stable kernel',
     address: 'stable@vger.kernel.org',
-    base: 'https://lore.kernel.ime.usp.br',
+    base: 'https://lore.kernel.org',
     index: '/stable/',
   },
   {
@@ -54,7 +54,7 @@ export const defaultFeeds: Feed[] = [
     name: 'linux-next',
     short: 'linux-next',
     address: 'linux-next@vger.kernel.org',
-    base: 'https://lore.kernel.ime.usp.br',
+    base: 'https://lore.kernel.org',
     index: '/linux-next/',
   },
   {

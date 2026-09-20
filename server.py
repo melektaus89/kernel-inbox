@@ -18,7 +18,7 @@ FEED_LOCK = threading.Lock()
 LINUS_EMAIL = 'torvalds@linux-foundation.org'
 ID = re.compile(r'/lkml/\d{4}/\d{1,2}/\d{1,2}/\d+')
 SOURCES = {
-    **{name: {'base':'https://lore.kernel.ime.usp.br', 'index':f'/{name}/new.atom', 'kind':'atom'} for name in ('regressions','stable','linux-next')},
+    **{name: {'base':'https://lore.kernel.org', 'index':f'/{name}/new.atom', 'kind':'atom'} for name in ('regressions','stable','linux-next')},
     'netdev': {'base':'https://lists.openwall.net', 'index':'/netdev/'},
     'lkml': {'base':'https://lkml.org', 'index':'/lkml/last100'},
     'linux-cve-announce': {'base':'https://lists.openwall.net', 'index':'/linux-cve-announce/'},
