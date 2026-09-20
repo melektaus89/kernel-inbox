@@ -67,3 +67,48 @@ footer{padding:11px 4px;font-size:11px;gap:8px;flex-wrap:wrap}
 .pane-divider::after{content:'';position:absolute;inset:0 -4px}
 .pane-divider:hover,.pane-divider:focus-visible,.pane-divider[data-separator="active"]{background:var(--accent)}
 .pane-divider:hover::after,.pane-divider:focus-visible::after{background:color-mix(in srgb,var(--accent) 25%,transparent)}
+
+/* Personal appearance settings apply to the entire inbox and its dialogs. */
+:root[data-theme="light"]{color-scheme:light;--background:#f8fafc;--dark_background:#eef2f7;--lighter_background:#e6edf7;--foreground:#1e293b;--accent:#3949ab;--muted:#52627a;--selection:#d9e2f2;--green:#28633d;--red:#b42332}
+:root[data-theme="dark"]{color-scheme:dark}
+.body{font-size:var(--reader-font-size,14px)}
+:root[data-density="compact"] .message-select{min-height:62px;padding-bottom:8px}
+:root[data-density="compact"] .message-row>.row-top{padding-top:8px}
+:root[data-density="compact"] .message-kind{display:none}
+.header-actions{display:flex;gap:2px;flex-shrink:0}
+.mailbox-header>div:first-child{min-width:0;flex-wrap:wrap}
+.settings-dialog{color:var(--foreground);background:var(--background);border:1px solid var(--shell-outline);padding:0;width:min(650px,calc(100vw - 24px));max-height:90dvh;box-shadow:0 16px 50px #0007}
+.settings-dialog[open]{display:flex;flex-direction:column}
+.settings-dialog::backdrop{background:#0009}
+.settings-dialog h2{margin:0}.settings-dialog h3{font-size:17px;margin:8px 0 20px}
+.settings-hint{color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 16px}
+.settings-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 20px;flex-shrink:0}
+.settings-tabs button{padding:14px 12px;border-bottom:2px solid transparent}
+.settings-tabs button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.settings-content{overflow:auto;padding:24px;min-height:0}
+.settings-field{display:flex;flex-direction:column;gap:8px;font-size:14px;margin-bottom:18px;min-width:0;flex:1}
+.settings-field input,.settings-field select{font:inherit;color:var(--foreground);background:var(--shell-fill);border:1px solid var(--shell-outline);padding:10px;width:100%;min-width:0;border-radius:0}
+.settings-field select option{background:var(--background);color:var(--foreground)}
+.settings-field input:focus-visible,.settings-field select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.settings-action{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--shell-outline);padding:10px 12px;min-height:40px;font-size:14px}
+.settings-feed{border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:20px}
+.settings-feed-row{display:flex;align-items:flex-end;gap:12px;margin-bottom:16px}
+.settings-feed-row .settings-field{margin-bottom:0}.feed-url{display:block;overflow-wrap:anywhere;margin:0}
+.category-row{border-bottom:1px solid var(--border);padding-bottom:18px}
+.no-feeds{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;gap:12px}
+@media(max-width:520px){.settings-content,.settings-dialog .profile-header{padding:18px}.settings-tabs{padding:0 6px}.settings-feed-row{flex-wrap:wrap}.settings-feed-row .settings-field{flex-basis:100%}.mailbox-header .list-switcher{max-width:130px}}
+
+/* Keep pending changes and save controls visible while settings scroll. */
+.settings-dialog{overflow:hidden}
+.settings-footer{flex-shrink:0;border-top:1px solid var(--border);padding:14px 24px;background:var(--background)}
+.settings-footer-actions{display:flex;justify-content:flex-end;gap:10px}
+.settings-save-status{font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5}
+.settings-footer .error{margin:0 0 12px;padding:0;border:0;max-height:15dvh;overflow:auto}
+.settings-primary{background:var(--selection);border-color:var(--accent)}
+.settings-section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.settings-section-heading h3{margin:0}
+.settings-add-form{padding:16px;border:1px solid var(--border);margin-bottom:20px;background:var(--shell-fill)}
+.settings-feed{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px;align-items:end}
+.settings-feed>.settings-field,.settings-feed>.settings-feed-row{margin-bottom:0}
+.settings-feed>.feed-url{grid-column:1/-1}
+@media(max-width:520px){.settings-feed{grid-template-columns:1fr}.settings-footer{padding:12px 18px}.settings-feed-row .settings-field{flex-basis:auto}.settings-feed-row{flex-wrap:nowrap}.settings-feed-row .settings-action{padding:10px 8px}.settings-dialog{max-height:95dvh}}

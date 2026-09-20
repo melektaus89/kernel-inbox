@@ -28,7 +28,10 @@ Open http://127.0.0.1:8765. Stop the server with Ctrl+C. Python uses only its st
 
 Kernel Inbox brings recent kernel development and security discussions into an email-style interface. Browse a feed, open a message, follow its conversation, and keep track of what you have read.
 
-- **Nine focused feeds:** LKML, Linus threads, kernel CVEs, OSS Security, regressions, stable, linux-next, networking, and releases & pull requests.
+- **Customizable feeds:** add public RSS 2.0 or Atom feeds, rename or remove feeds, restore built-in feeds, and create, rename, or remove categories from Settings. Removing a category keeps its feeds under Uncategorized.
+- **Personal appearance:** choose desktop, dark, or light colors, reading text size, message spacing, and timezone from the settings cog beside Refresh.
+- **Review before saving:** settings changes, including feed removals, stay in a draft until you choose Apply or OK. Cancel discards unapplied changes.
+- **Nine built-in feeds:** LKML, Linus threads, kernel CVEs, OSS Security, regressions, stable, linux-next, networking, and releases & pull requests.
 - **Adjustable layout:** edge-to-edge panes with draggable desktop dividers and remembered widths. Use Tab and arrow keys to resize with the keyboard; narrow windows keep a compact layout.
 - **Readable discussions:** full messages, archive-provided conversation links, and colored quotes and patch lines.
 - **A personal reading queue:** unread counts, starred messages, header search, and a remembered feed selection.
@@ -36,6 +39,28 @@ Kernel Inbox brings recent kernel development and security discussions into an e
 - **Desktop-friendly defaults:** browser-local timestamps, a built-in theme, optional Omarchy palette integration, and optional Linux start-at-login support.
 
 The server listens only on `127.0.0.1`. Archive content is rendered as text, without archive scripts or HTML. Kernel Inbox is a reader: use “View original” to visit the source archive.
+
+## Customize your inbox
+
+Open the **settings cog beside Refresh**. Settings has three sections:
+
+| Section | Controls |
+| --- | --- |
+| Appearance | Desktop theme, Ethereal dark, or Light; reading text size; message spacing; display timezone |
+| Feeds | **Add feed** at the top; add a built-in source or a public RSS/Atom URL; rename feeds, change their categories, or remove them |
+| Categories | Add a category above the list; rename or remove existing categories |
+
+For a custom feed, open **Feeds → Add feed**, choose its category, enter a name and RSS/Atom URL, then click **Add feed** to check the URL and add it to your draft. Removed built-in feeds can be added again from the built-in feed selector.
+
+The buttons at the bottom stay visible while scrolling:
+
+- **Apply** saves your changes and keeps settings open.
+- **OK** saves your changes and closes settings.
+- **Cancel**, Escape, the close button, or clicking outside the panel discards changes made since the last Apply.
+
+Feed removals are shown as pending until you save. Removing a category keeps its feeds under **Uncategorized**. Invalid timezones, blank names, and unfinished add-feed/category forms must be resolved before saving. If browser storage cannot save your changes, settings stays open with the draft intact.
+
+Preferences are saved in the current browser, with no account or cross-device sync. Existing read/starred state and pane widths are retained. To follow your browser's timezone, leave the timezone field blank; otherwise enter an IANA name such as `UTC` or `America/Los_Angeles`. Timezone changes affect display times, not the built-in feeds' UTC date windows.
 
 ## Feeds and archive behavior
 
@@ -49,6 +74,8 @@ The server listens only on `127.0.0.1`. Archive content is rendered as text, wit
 | Networking | netdev via lists.openwall.net |
 | Releases & pulls | Original Linux version announcements and `[GIT PULL]` / `[PULL]` requests from seven UTC calendar days of LKML |
 
+Custom feeds must use a public HTTP or HTTPS URL on port 80 or 443. RSS 2.0 and Atom are supported, with a 5 MB response limit and up to 100 entries. Content is displayed as plain text; use “View original” for the full article. Private-network URLs and redirects to them are rejected. Feed preferences are per browser; cached responses stay on this computer. Removing a feed keeps its read/starred history if it is added again.
+
 Feeds refresh every five minutes and display up to 100 recent messages; upstream Atom feeds may return fewer. The Lore mirror can lag the primary archive. Search applies to loaded sender and subject headers, and sender profiles cover recent messages and the local cache rather than complete posting histories.
 
 Linus threads open at his latest matching post and share read/starred state with LKML, as does the releases feed. Where LKML.org redacts addresses, Linus matching uses the exact archive sender name; mentions and CC-only participation do not qualify. Follow “In this conversation” to read other participants. Entries without full timestamps retain their archive dates until opened.
@@ -59,8 +86,8 @@ Linus threads open at his latest matching post and share read/starred state with
 | --- | --- | --- |
 | Port | `8765` | `python3 server.py --port 8766` or export `KERNEL_INBOX_PORT` |
 | Cache directory | `.cache/` in the checkout | Export `KERNEL_INBOX_CACHE_DIR` |
-| Theme | Detect Omarchy, otherwise Ethereal | Export `KERNEL_INBOX_THEME=default` to disable detection |
-| Display timezone | Browser timezone | Copy `.env.example` to `.env.local`, set `NEXT_PUBLIC_TIME_ZONE` to an IANA name such as `UTC`, then rebuild |
+| Theme | Detect Omarchy, otherwise Ethereal | Choose Desktop theme, Ethereal dark, or Light in Settings → Appearance. Export `KERNEL_INBOX_THEME=default` to disable desktop palette detection. |
+| Display timezone | Browser timezone | Open Settings → Appearance, enter an IANA timezone such as `UTC` or `America/Los_Angeles`, then choose Apply or OK. Leave blank to follow the browser. `NEXT_PUBLIC_TIME_ZONE` remains a build-time default. |
 
 Python runtime settings must be exported in the shell; the server does not load `.env` files. Keep the default port to retain access to existing browser read/starred state: browser storage is tied to the exact origin, including hostname and port.
 
@@ -126,7 +153,8 @@ You can then delete the checkout. If you used service overrides or a custom cach
 
 - `app/`, `components/`, `hooks/`, `lib/`, `public/`: frontend source and assets.
 - `server.py`: archive adapters, cache, optional theme integration, and local HTTP server.
-- `test_server.py`: offline parser and server tests.
+- `custom_feeds.py`: public RSS/Atom retrieval, destination checks, and text extraction.
+- `test_server.py`, `test_custom_feeds.py`: offline parser, cache, destination-validation, and server tests.
 - `scripts/install-service.py`, `kernel-inbox.service`: optional systemd integration.
 - `.github/workflows/checks.yml`: continuous integration.
 

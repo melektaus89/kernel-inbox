@@ -2,6 +2,7 @@
 """Loopback-only LKML reader. No external Python dependencies."""
 import argparse, os, json, re, time, tomllib, urllib.request, urllib.parse, threading, hashlib
 import xml.etree.ElementTree as ET
+from custom_feeds import validate_url, fetch_public, parse_feed
 from html import unescape
 from email.parser import Parser
 from email.utils import parseaddr
@@ -154,6 +155,22 @@ def fetch_archive(path, ttl, source="lkml"):
             if cached: return {**cached,'stale':True}
             raise
 
+def custom_feed(url):
+    validate_url(url)
+    key = CACHE / ('custom_' + hashlib.sha256(url.encode()).hexdigest() + '.json')
+    with cache_lock(key):
+        cached = json.loads(key.read_text()) if key.exists() else None
+        if cached and time.time() - cached['fetched'] < 300: return cached
+        try:
+            raw, resolved = fetch_public(url)
+            result = {'messages':parse_feed(raw, url, resolved), 'fetched':time.time(), 'stale':False}
+            key.write_text(json.dumps(result))
+            return result
+        except Exception:
+            if cached: return {**cached, 'stale':True}
+            raise
+
+
 def is_linus(author):
     name, address = parseaddr(author)
     if address and '@' in address:
@@ -275,6 +292,7 @@ class Handler(SimpleHTTPRequestHandler):
         if source not in SOURCES: self.send_error(400); return
         try:
             if u.path=='/api/theme': data=theme()
+            elif u.path=='/api/feed': data=custom_feed(params.get('url',[''])[0])
             elif u.path=='/api/messages': data=linus_feed() if feed=='linus' else releases_feed() if feed=='releases' else fetch_archive(SOURCES[source]['index'],300,source)
             elif u.path=='/api/sender':
                 name=urllib.parse.parse_qs(u.query).get('name',[''])[0]
@@ -286,6 +304,8 @@ class Handler(SimpleHTTPRequestHandler):
                 data=fetch_archive(mid,300 if feed=='linus' else 86400,source)
             else: self.send_error(404); return
             status=200
+        except ValueError as error:
+            data={'error':str(error) if u.path=='/api/feed' else 'Invalid archive response.'}; status=400
         except Exception:
             data={'error':'The archive could not be reached. Please try refreshing in a moment.'}; status=502
         body=json.dumps(data).encode(); self.send_response(status); self.send_header('Content-Type','application/json'); self.send_header('Cache-Control','no-store'); self.send_header('Content-Length',str(len(body))); self.end_headers(); self.wfile.write(body)
